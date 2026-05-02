@@ -1,0 +1,98 @@
+:root {
+  --page-w: 892;
+  --page-h: 1186;
+  --paper: #fffdf8;
+  --ink: #171717;
+  --wash: #f1eee7;
+  --edge: rgba(28, 28, 28, .12);
+  --shadow: 0 30px 70px rgba(42, 33, 19, .12), 0 6px 24px rgba(42, 33, 19, .08);
+}
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 18% 2%, rgba(255, 255, 255, .9), rgba(255,255,255,0) 28rem),
+    linear-gradient(135deg, #f7f3ec 0%, #eee8de 42%, #f6f4ef 100%);
+  color: var(--ink);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  min-height: 100%;
+  padding: clamp(18px, 4vw, 56px) 0;
+  background: transparent;
+  font-family: Georgia, "Times New Roman", "Noto Serif", "Liberation Serif", serif;
+}
+body > a[name] {
+  display: none;
+}
+a {
+  color: inherit;
+  text-decoration-thickness: .07em;
+  text-underline-offset: .16em;
+}
+.pdf-page {
+  position: relative;
+  width: min(892px, calc(100vw - clamp(20px, 5vw, 96px)));
+  height: calc(1186px * var(--scale, 1));
+  margin: 0 auto clamp(22px, 4vw, 46px);
+  background: var(--paper);
+  border: 1px solid var(--edge);
+  border-radius: clamp(10px, 1.4vw, 18px);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  isolation: isolate;
+}
+.pdf-scale {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 892px;
+  height: 1186px;
+  transform-origin: top left;
+  transform: scale(var(--scale, 1));
+}
+.pdf-scale > a[name] {
+  display: none;
+}
+[id^="page"][id$="-div"] {
+  background-color: white;
+}
+[id^="page"][id$="-div"] > img:first-child {
+  border-radius: inherit;
+}
+p {
+  margin: 0;
+  color: #111;
+}
+@media (min-width: 1180px) {
+  .pdf-page {
+    border-radius: 14px;
+  }
+}
+@media (max-width: 720px) {
+  body {
+    padding-top: 12px;
+    padding-bottom: 18px;
+  }
+  .pdf-page {
+    width: calc(100vw - 20px);
+    margin-bottom: 18px;
+    border-radius: 10px;
+    box-shadow: 0 16px 36px rgba(42, 33, 19, .14), 0 4px 12px rgba(42, 33, 19, .08);
+  }
+}
+@media print {
+  html, body {
+    background: #fff;
+    padding: 0;
+  }
+  .pdf-page {
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    page-break-after: always;
+  }
+}
